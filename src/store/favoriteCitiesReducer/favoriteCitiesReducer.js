@@ -1,70 +1,90 @@
 import store from "../store";
-import {ADD_TO_FAVORITES, GET_CITIES, REMOVE_FROM_FAVORITES, UPDATE_TEMP} from "./actionTypes";
+import {
+  ADD_TO_FAVORITES,
+  GET_CITIES,
+  REMOVE_FROM_FAVORITES,
+  UPDATE_TEMP,
+} from "./actionTypes";
 import fetchData from "../../helpers/fetchData";
 
-export const addCity = (city) => ({type: ADD_TO_FAVORITES, payload: city})
-export const removeCity = (city) => ({type: REMOVE_FROM_FAVORITES, payload: city})
-export const getCitiesFromLocaleStorage = (cities) => ({type: GET_CITIES, payload: cities})
-export const updateTemp = (data) => ({type: UPDATE_TEMP, payload: data})
+export const addCity = (city) => ({ type: ADD_TO_FAVORITES, payload: city });
+export const removeCity = (city) => ({
+  type: REMOVE_FROM_FAVORITES,
+  payload: city,
+});
+export const getCitiesFromLocaleStorage = (cities) => ({
+  type: GET_CITIES,
+  payload: cities,
+});
+export const updateTemp = (data) => ({ type: UPDATE_TEMP, payload: data });
 
 export const citiesState = {
-    arrOfCities: [],
+  arrOfCities: [],
 };
 
 export function favoriteCitiesReducer(state = citiesState, action) {
-    switch (action.type) {
-        case ADD_TO_FAVORITES:
-            return {
-                ...state,
-                arrOfCities: [...state.arrOfCities, {
-                    city: action.payload.city,
-                    temp_c: action.payload.temp_c,
-                    temp_f: action.payload.temp_f,
-                    lastUpdated: action.payload.lastUpdated,
-                    isDay: action.payload.isDay,
-                    code: action.payload.code
-                }]
-            };
-        case REMOVE_FROM_FAVORITES:
-            return {
-                ...state,
-                arrOfCities: state.arrOfCities.filter(
-                    (obj) => obj.city !== action.payload
-                ),
-            };
-        case GET_CITIES:
-            return {
-                ...state,
-                arrOfCities: action.payload,
-            };
-        case UPDATE_TEMP:
-            return {
-                ...state,
-                arrOfCities: state.arrOfCities.map((obj) => obj.city === action.payload.location.name.toLowerCase() ? {
-                    ...obj, temp_c: action.payload.current.temp_c.toFixed(),
-                    temp_f: action.payload.current.temp_f.toFixed(),
-                    lastUpdated: Date.now(),
-                    isDay: action.payload.current.is_day,
-                    code: action.payload.current.condition.code
-                } : obj)
-            }
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case ADD_TO_FAVORITES:
+      return {
+        ...state,
+        arrOfCities: [
+          ...state.arrOfCities,
+          {
+            city: action.payload.city,
+            temp_c: action.payload.temp_c,
+            temp_f: action.payload.temp_f,
+            lastUpdated: action.payload.lastUpdated,
+            isDay: action.payload.isDay,
+            code: action.payload.code,
+            localTime: action.payload.localTime,
+          },
+        ],
+      };
+    case REMOVE_FROM_FAVORITES:
+      return {
+        ...state,
+        arrOfCities: state.arrOfCities.filter(
+          (obj) => obj.city !== action.payload
+        ),
+      };
+    case GET_CITIES:
+      return {
+        ...state,
+        arrOfCities: action.payload,
+      };
+    case UPDATE_TEMP:
+      return {
+        ...state,
+        arrOfCities: state.arrOfCities.map((obj) =>
+          obj.city === action.payload.location.name.toLowerCase()
+            ? {
+                ...obj,
+                temp_c: action.payload.current.temp_c.toFixed(),
+                temp_f: action.payload.current.temp_f.toFixed(),
+                lastUpdated: Date.now(),
+                isDay: action.payload.current.is_day,
+                code: action.payload.current.condition.code,
+              }
+            : obj
+        ),
+      };
+    default:
+      return state;
+  }
 }
 
 export const addToFavorites = (city) => (dispatch) => {
-    store.dispatch(addCity(city));
+  store.dispatch(addCity(city));
 };
 export const removeFromFavorites = (city) => (dispatch) => {
-    store.dispatch(removeCity(city));
+  store.dispatch(removeCity(city));
 };
 
 export const fetchCityTemp = (city) => async (dispatch) => {
-    try {
-        const data = await (fetchData(city));
-        store.dispatch(updateTemp(data));
-    } catch (e) {
-        console.error(e);
-    }
-}
+  try {
+    const data = await fetchData(city);
+    store.dispatch(updateTemp(data));
+  } catch (e) {
+    console.error(e);
+  }
+};

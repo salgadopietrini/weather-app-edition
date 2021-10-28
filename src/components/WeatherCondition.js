@@ -5,7 +5,11 @@ import { connect } from "react-redux";
 const WeatherCondition = (props) => {
   return (
     <div className="condition">
-      it's {props.condition} and the local time is {props.localTime.slice(-5)}
+      it's {props.condition} and the local time is{" "}
+      {props.localTime.slice(-5, -3) <= 12
+        ? props.localTime.slice(-5, -3)
+        : props.localTime.slice(-5, -3) - 12}
+      :{props.localTime.slice(-2)}
       {props.localTime.slice(-5, -3) < 12 ? "am" : "pm"}
     </div>
   );
