@@ -5,6 +5,7 @@ import {
   SET_CITY,
   SET_HOURLY_FORECAST,
   SET_WEATHER,
+  CHANGE_TIME_FORMAT,
 } from "./actionTypes";
 import fetchData from "../../helpers/fetchData";
 import getArrOfHours from "../../helpers/getArrOfHours";
@@ -17,6 +18,10 @@ export const setWeather = (response) => ({
 export const changeTempScale = (response) => ({
   type: CHANGE_TEMP_SCALE,
   payload: response,
+});
+export const changeTimeFormat = (response) => ({
+  type: CHANGE_TIME_FORMAT,
+  payload: !response,
 });
 export const changeForecastMod = (response) => ({
   type: CHANGE_FORECAST_MODE,
@@ -52,6 +57,7 @@ export const initialState = {
   hourlyForecast: [],
   threeDayForecast: [],
   forecastMod: "threeDay",
+  timeFormat: true,
 };
 
 export function weatherReducer(state = initialState, action) {
@@ -97,6 +103,11 @@ export function weatherReducer(state = initialState, action) {
       return {
         ...state,
         forecastMod: action.payload,
+      };
+    case CHANGE_TIME_FORMAT:
+      return {
+        ...state,
+        timeFormat: action.payload,
       };
     default:
       return state;
