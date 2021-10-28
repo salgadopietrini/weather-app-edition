@@ -21,7 +21,7 @@ export const changeTempScale = (response) => ({
 });
 export const changeTimeFormat = (response) => ({
   type: CHANGE_TIME_FORMAT,
-  payload: !response,
+  payload: response,
 });
 export const changeForecastMod = (response) => ({
   type: CHANGE_FORECAST_MODE,

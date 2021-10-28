@@ -6,11 +6,15 @@ const WeatherCondition = (props) => {
   return (
     <div className="condition">
       it's {props.condition} and the local time is{" "}
-      {props.localTime.slice(-5, -3) <= 12
-        ? props.localTime.slice(-5, -3)
-        : props.localTime.slice(-5, -3) - 12}
-      :{props.localTime.slice(-2)}
-      {props.localTime.slice(-5, -3) < 12 ? "am" : "pm"}
+      {props.timeFormat && props.localTime.slice(-5, -3) <= 12
+        ? props.localTime.slice(-5, -3) + "am"
+        : props.timeFormat
+        ? props.localTime.slice(-5, -3) -
+          12 +
+          ":" +
+          props.localTime.slice(-2) +
+          "pm"
+        : props.localTime.slice(-5)}
     </div>
   );
 };
@@ -20,6 +24,7 @@ const mapStateToProps = (state) => ({
   responseLocation: state.weatherData.responseLocation,
   condition: state.weatherData.condition,
   localTime: state.weatherData.localTime,
+  timeFormat: state.weatherData.timeFormat,
 });
 
 export default connect(mapStateToProps)(WeatherCondition);

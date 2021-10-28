@@ -7,11 +7,16 @@ import {
 } from "../store/weatherReducer/weatherReducer";
 
 const TempScaleToggle = (props) => {
-  if (!localStorage.getItem("tempScale")) {
+  /*  if (!localStorage.getItem("tempScale")) {
     localStorage.setItem("tempScale", "celsius");
   }
+  if (!localStorage.getItem("timeFormat")) {
+    localStorage.setItem("timeFormat", true);
+  } */
   const [value, setValue] = useState(localStorage.getItem("tempScale"));
-  const [time, setTime] = useState(localStorage.getItem("timeFormat"));
+  const [time, setTime] = useState(
+    localStorage.getItem("timeFormat") === "true" ? true : false
+  );
   return (
     <div>
       <ToggleButtonGroup
@@ -81,7 +86,6 @@ const TempScaleToggle = (props) => {
       </ToggleButtonGroup>
       <br />
       <br />
-
       <ToggleButtonGroup
         color="secondary"
         value={time}
@@ -153,6 +157,7 @@ const TempScaleToggle = (props) => {
 
 const mapStateToProps = (state) => ({
   tempScale: state.weatherData.tempScale,
+  timeFormat: state.weatherData.timeFormat,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -34,11 +34,15 @@ const CitiesList = (props) => {
                 </div>
               </div>
               <div>
-                {obj.localTime.slice(-5, -3) <= 12
-                  ? obj.localTime.slice(-5, -3)
-                  : obj.localTime.slice(-5, -3) - 12}
-                :{obj.localTime.slice(-2)}
-                {obj.localTime.slice(-5, -3) < 12 ? "am" : "pm"}
+                {props.timeFormat && obj.localTime.slice(-5, -3) <= 12
+                  ? obj.localTime.slice(-5, -3) + "am"
+                  : props.timeFormat
+                  ? obj.localTime.slice(-5, -3) -
+                    12 +
+                    ":" +
+                    obj.localTime.slice(-2) +
+                    "pm"
+                  : obj.localTime.slice(-5)}
               </div>
             </button>
           ))}
@@ -62,6 +66,7 @@ const CitiesList = (props) => {
 const mapStateToProps = (state) => ({
   cities: state.cities.arrOfCities,
   tempScale: state.weatherData.tempScale,
+  timeFormat: state.weatherData.timeFormat,
 });
 
 const mapDispatchToProps = (dispatch) => ({
