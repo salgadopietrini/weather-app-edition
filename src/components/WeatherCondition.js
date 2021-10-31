@@ -7,7 +7,7 @@ const WeatherCondition = (props) => {
     <div className="condition">
       it's {props.condition} and the local time is{" "}
       {props.timeFormat && props.localTime.slice(-5, -3) <= 12
-        ? props.localTime.slice(-5, -3) + "am"
+        ? props.localTime.slice(-5, -3) + ":" + props.localTime.slice(-2) + "am"
         : props.timeFormat
         ? props.localTime.slice(-5, -3) -
           12 +

@@ -35,7 +35,10 @@ const CitiesList = (props) => {
               </div>
               <div>
                 {props.timeFormat && obj.localTime.slice(-5, -3) <= 12
-                  ? obj.localTime.slice(-5, -3) + "am"
+                  ? obj.localTime.slice(-5, -3) +
+                    ":" +
+                    obj.localTime.slice(-2) +
+                    "am"
                   : props.timeFormat
                   ? obj.localTime.slice(-5, -3) -
                     12 +
