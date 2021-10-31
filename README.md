@@ -13,7 +13,7 @@ Thanks to this I was introduced to Redux implementation in a react project.
 1. Clone this repository.
 
 ```
-git clone https://github.com/keyofevergreen/SimpleWeather.git
+git clone https://github.com/salgadopietrini/weather-app-edition.git
 ```
 
 2. Run `npm install`.
