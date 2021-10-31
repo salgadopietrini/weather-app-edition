@@ -6,6 +6,8 @@ I downloaded this app to experiment on it as a project for the bootcamp upgrade-
 I added a small detail (local time and the option to switch it from 12h to 24h format).
 Thanks to this I was introduced to Redux implementation in a react project.
 
+![alt text](https://i.ibb.co/94fS8mf/weather-app-LG.png)
+
 ## How to use
 
 1. Clone this repository.
