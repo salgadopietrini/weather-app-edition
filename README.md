@@ -2,7 +2,7 @@
 
 ### To go to the original repository go to https://reactjsexample.com/a-simple-weather-app-using-react-and-redux/.
 
-I downloaded this app to as a project for the bootcamp upgrade-hub.
+I downloaded this app to experiment on it as a project for the bootcamp upgrade-hub.
 I added a small detail (local time and the option to switch it from 12h to 24h format).
 Thanks to this I was introduced to Redux implementation in a react project.
 
